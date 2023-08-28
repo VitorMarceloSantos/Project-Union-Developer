@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { UserType } from '../../types/UserType';
 import { TableUsers } from './TableUsers';
 const QTDE_USERS = 10;
@@ -14,5 +14,7 @@ export const GetListUsers = () => {
 	useEffect(() => {
 		GetData();
 	}, []);
-	return <section>{users.length ? <TableUsers users={users} /> : <p>Carregando ...</p>}</section>;
+	return (
+		<section>{useMemo(() => (users.length ? <TableUsers users={users} /> : <p>Carregando ...</p>), [users])}</section>
+	);
 };

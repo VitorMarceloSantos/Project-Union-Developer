@@ -18,5 +18,5 @@ export type UserPaginationType = {
 export type GetListUsersType = {
 	userState: UserStateType;
 	userPagination: UserPaginationType;
+	usersFiltered: UserType[];
 };
-

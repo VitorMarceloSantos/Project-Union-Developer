@@ -6,9 +6,10 @@ export const PAGES_PER_DISPLAY = 10;
 const QTDE_USERS = 100;
 const URL = `https://randomuser.me/api/?results=${QTDE_USERS}`;
 
-export const GetListUsers = ({ userState, userPagination }: GetListUsersType) => {
+export const GetListUsers = ({ userState, userPagination, usersFiltered }: GetListUsersType) => {
 	const { users, setUsers } = userState;
 	const { usersPagination, setUsersPagination } = userPagination;
+	const verifyFilterUsers = usersFiltered.length !== 0 ? usersFiltered : usersPagination;
 
 	const GetData = async () => {
 		const response = await fetch(URL);
@@ -28,8 +29,8 @@ export const GetListUsers = ({ userState, userPagination }: GetListUsersType) =>
 		<>
 			<section>
 				{useMemo(
-					() => (users.length ? <TableUsers users={usersPagination} /> : <p>Carregando ...</p>),
-					[usersPagination],
+					() => (users.length ? <TableUsers users={verifyFilterUsers} /> : <p>Carregando ...</p>),
+					[verifyFilterUsers],
 				)}
 			</section>
 		</>

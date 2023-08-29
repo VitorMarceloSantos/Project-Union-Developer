@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
-import { UserType } from '../../types/UserType';
+import { useEffect, useMemo } from 'react';
 import { TableUsers } from './TableUsers';
-import { PaginationMenu } from '../pagination/PaginationMenu';
+import { GetListUsersType } from '../../types/TableUserType';
 
 export const PAGES_PER_DISPLAY = 10;
 const QTDE_USERS = 100;
 const URL = `https://randomuser.me/api/?results=${QTDE_USERS}`;
 
-export const GetListUsers = () => {
-	const [users, setUsers] = useState<UserType[]>([]);
-	const [usersPagination, setUsersPagination] = useState<UserType[]>([]);
+export const GetListUsers = ({ userState, userPagination }: GetListUsersType) => {
+	const { users, setUsers } = userState;
+	const { usersPagination, setUsersPagination } = userPagination;
 
 	const GetData = async () => {
 		const response = await fetch(URL);
@@ -33,7 +32,6 @@ export const GetListUsers = () => {
 					[usersPagination],
 				)}
 			</section>
-			<PaginationMenu users={users} setUsersPagination={setUsersPagination} />
 		</>
 	);
 };

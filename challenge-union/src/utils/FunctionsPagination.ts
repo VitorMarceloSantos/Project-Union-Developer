@@ -17,27 +17,27 @@ export const HandlerNextPages = ({ pageFinally, setPageInitial, setPageFinally }
 	setPageFinally((current) => current + 5);
 };
 
-export const CreatePaginationNumbers = ({ pageInitial, pageFinally, setPaginationNumbers }: CreatePaginationType) => {
+export const CreatePaginationNumbers = ({ pageInitial, pageFinally, handlerSetPaginationNumbers }: CreatePaginationType) => {
 	const arrayPages = [];
 	for (let i = pageInitial; i <= pageFinally; i += 1) {
 		arrayPages.push({ page: i });
 	}
-	setPaginationNumbers(arrayPages);
+	handlerSetPaginationNumbers(arrayPages);
 };
 
-export const CalculationTotalPages = ({ users, setPageTotal, createPagination }: CalculationTotalPagesType) => {
-	setPageTotal(Math.floor(users.length / PAGES_PER_DISPLAY));
+export const CalculationTotalPages = ({ stateUsers, setPageTotal, createPagination }: CalculationTotalPagesType) => {
+	setPageTotal(Math.floor(stateUsers.length / PAGES_PER_DISPLAY));
 	CreatePaginationNumbers({ ...createPagination });
 	// Foi utilizado o Math.floor para caso o resultado seja um fracionario, o arrendodamento será para cima(número inteiro), sendo assim comportando todos os elementos da lista.
 };
 
 export const SelectUsersPagination = ({ page, paginationMenu }: SelectUsersPaginationType) => {
-	const { users, setUsersPagination } = paginationMenu;
+	const { stateUsers, setUsersPagination } = paginationMenu;
 	let newList: UserType[] = [];
 	if (page === 1) {
-		newList = users.slice(0, page * PAGES_PER_DISPLAY);
+		newList = stateUsers.slice(0, page * PAGES_PER_DISPLAY);
 	} else {
-		newList = users.slice(page * PAGES_PER_DISPLAY - PAGES_PER_DISPLAY, page * PAGES_PER_DISPLAY);
+		newList = stateUsers.slice(page * PAGES_PER_DISPLAY - PAGES_PER_DISPLAY, page * PAGES_PER_DISPLAY);
 	}
 	setUsersPagination(newList);
 };

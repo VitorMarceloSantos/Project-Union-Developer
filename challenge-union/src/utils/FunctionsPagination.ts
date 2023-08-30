@@ -1,11 +1,12 @@
-import { PAGES_PER_DISPLAY } from '../components/listUsers/GetListUsers';
 import {
 	CalculationTotalPagesType,
 	CreatePaginationType,
 	PaginationSetPagesType,
+	SelectUsersPaginationCurrentType,
 	SelectUsersPaginationType,
 } from '../types/PaginationTypes';
 import { UserType } from '../types/UserType';
+import { PAGES_PER_DISPLAY } from './PagesPerDisplay';
 
 export const HandlerBackPages = ({ pageInitial, setPageInitial, setPageFinally }: PaginationSetPagesType) => {
 	setPageFinally(pageInitial - 1);
@@ -17,12 +18,16 @@ export const HandlerNextPages = ({ pageFinally, setPageInitial, setPageFinally }
 	setPageFinally((current) => current + 5);
 };
 
-export const CreatePaginationNumbers = ({ pageInitial, pageFinally, handlerSetPaginationNumbers }: CreatePaginationType) => {
+export const CreatePaginationNumbers = ({
+	pageInitial,
+	pageFinally,
+	handlerSetPaginationNumbers,
+}: CreatePaginationType) => {
 	const arrayPages = [];
 	for (let i = pageInitial; i <= pageFinally; i += 1) {
 		arrayPages.push({ page: i });
 	}
-	handlerSetPaginationNumbers(arrayPages);
+	handlerSetPaginationNumbers({ paginationNumbers: arrayPages });
 };
 
 export const CalculationTotalPages = ({ stateUsers, setPageTotal, createPagination }: CalculationTotalPagesType) => {
@@ -31,7 +36,26 @@ export const CalculationTotalPages = ({ stateUsers, setPageTotal, createPaginati
 	// Foi utilizado o Math.floor para caso o resultado seja um fracionario, o arrendodamento será para cima(número inteiro), sendo assim comportando todos os elementos da lista.
 };
 
-export const SelectUsersPagination = ({ page, paginationMenu }: SelectUsersPaginationType) => {
+export const SelectUsersPaginationCurrent = ({
+	paginationMenu,
+	valueInitialCurrent,
+}: SelectUsersPaginationCurrentType) => {
+	const { stateUsers, setUsersPagination } = paginationMenu;
+	let newList: UserType[] = [];
+	if (valueInitialCurrent !== 0) {
+		newList = stateUsers.slice(
+			valueInitialCurrent * PAGES_PER_DISPLAY - PAGES_PER_DISPLAY,
+			valueInitialCurrent * PAGES_PER_DISPLAY,
+		);
+	}
+	setUsersPagination(newList);
+};
+
+export const SelectUsersPagination = ({
+	page,
+	paginationMenu,
+	handlerSetPaginationNumbers, // valueInitialCurrent,
+}: SelectUsersPaginationType) => {
 	const { stateUsers, setUsersPagination } = paginationMenu;
 	let newList: UserType[] = [];
 	if (page === 1) {
@@ -39,5 +63,7 @@ export const SelectUsersPagination = ({ page, paginationMenu }: SelectUsersPagin
 	} else {
 		newList = stateUsers.slice(page * PAGES_PER_DISPLAY - PAGES_PER_DISPLAY, page * PAGES_PER_DISPLAY);
 	}
+
 	setUsersPagination(newList);
+	handlerSetPaginationNumbers({ currentPage: page });
 };

@@ -31,4 +31,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			</PaginationNumbersProvider>
 		</UsersProvider>
 	</React.StrictMode>,
+	// No Modo Estrito, o React chamará sua função de atualização duas vezes para ajudá-lo a encontrar impurezas acidentais. Este é um comportamento apenas de desenvolvimento e não afeta a produção
 );

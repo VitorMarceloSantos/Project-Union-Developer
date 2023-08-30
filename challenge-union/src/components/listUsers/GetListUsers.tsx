@@ -7,19 +7,27 @@ const QTDE_USERS = 100;
 const URL = `https://randomuser.me/api/?results=${QTDE_USERS}`;
 
 export const GetListUsers = ({ userState, userPagination, usersFiltered }: GetListUsersType) => {
-	const { users, setUsers } = userState;
+	const { stateUsers, handlerSetUsers } = userState;
 	const { usersPagination, setUsersPagination } = userPagination;
 	const verifyFilterUsers = usersFiltered.length !== 0 ? usersFiltered : usersPagination;
+
+	const UpdateData = () => {
+		setUsersPagination(stateUsers.slice(0, 10));
+	};
 
 	const GetData = async () => {
 		const response = await fetch(URL);
 		const listUsers = await response.json();
-		setUsers(listUsers.results);
+		handlerSetUsers(listUsers.results);
 		setUsersPagination(listUsers.results.slice(0, 10));
 	};
 	useEffect(() => {
 		try {
-			GetData();
+			if (stateUsers.length !== 0) {
+				UpdateData();
+			} else {
+				GetData();
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -29,7 +37,7 @@ export const GetListUsers = ({ userState, userPagination, usersFiltered }: GetLi
 		<>
 			<section>
 				{useMemo(
-					() => (users.length ? <TableUsers users={verifyFilterUsers} /> : <p>Carregando ...</p>),
+					() => (stateUsers.length ? <TableUsers users={verifyFilterUsers} /> : <p>Carregando ...</p>),
 					[verifyFilterUsers],
 				)}
 			</section>

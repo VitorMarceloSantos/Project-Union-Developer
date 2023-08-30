@@ -7,7 +7,7 @@ import { UsersContext } from '../context/UsersContext';
 
 export const Home = () => {
 	const { stateUsers, handlerSetUsers } = useContext(UsersContext);
-	const [usersPagination, setUsersPagination] = useState<UserType[]>([]);
+	const [usersPagination, setUsersPagination] = useState<UserType[]>([]); // Usado no GetList e PaginationMenu, toda vez que selecionar uma página diferente, o conteúdo será atualizado
 	const [usersFiltered, setUsersFiltered] = useState<UserType[]>([]);
 
 	return (

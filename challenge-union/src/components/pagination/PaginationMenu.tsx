@@ -6,16 +6,22 @@ import {
 	HandlerBackPages,
 	HandlerNextPages,
 	SelectUsersPagination,
+	SelectUsersPaginationCurrent,
 } from '../../utils/FunctionsPagination';
 import { PaginationNumbersContext } from '../../context/PaginationNumbersContext';
 
 export const PaginationMenu = ({ stateUsers, setUsersPagination }: PaginationMenuProps) => {
-	const { paginationNumbers, handlerSetPaginationNumbers } = useContext(PaginationNumbersContext);
-	const valueInitialPage = paginationNumbers.length !== 0 ? paginationNumbers[0].page : 1;
-	const valueFinallyPage = paginationNumbers.length !== 0 ? paginationNumbers[paginationNumbers.length - 1].page : 5;
+	const {
+		pagination: { currentPage, paginationNumbers },
+		handlerSetPaginationNumbers,
+	} = useContext(PaginationNumbersContext);
+	const valueInitialPage = paginationNumbers && paginationNumbers.length !== 0 ? paginationNumbers[0].page : 1;
+	const valueFinallyPage =
+		paginationNumbers && paginationNumbers.length !== 0 ? paginationNumbers[paginationNumbers.length - 1].page : 5;
 	const [pageInitial, setPageInitial] = useState<number>(valueInitialPage);
 	const [pageFinally, setPageFinally] = useState<number>(valueFinallyPage);
 	const [pagesTotal, setPageTotal] = useState<number>(0);
+	const valueInitialCurrent = currentPage && currentPage !== 0 ? currentPage : 1;
 
 	useEffect(() => {
 		CalculationTotalPages({
@@ -23,6 +29,7 @@ export const PaginationMenu = ({ stateUsers, setUsersPagination }: PaginationMen
 			setPageTotal,
 			createPagination: { pageInitial, pageFinally, handlerSetPaginationNumbers },
 		});
+		SelectUsersPaginationCurrent({ paginationMenu: { stateUsers, setUsersPagination }, valueInitialCurrent });
 	}, [stateUsers]);
 
 	useEffect(() => {
@@ -43,10 +50,16 @@ export const PaginationMenu = ({ stateUsers, setUsersPagination }: PaginationMen
 									&#60;
 								</button>
 							</li>
-							{paginationNumbers.map(({ page }) => (
+							{paginationNumbers?.map(({ page }) => (
 								<li key={page} style={{ listStyleType: 'none' }}>
 									<button
-										onClick={() => SelectUsersPagination({ page, paginationMenu: { stateUsers, setUsersPagination } })}
+										onClick={() =>
+											SelectUsersPagination({
+												page,
+												paginationMenu: { stateUsers, setUsersPagination },
+												handlerSetPaginationNumbers,
+											})
+										}
 									>
 										{page}
 									</button>

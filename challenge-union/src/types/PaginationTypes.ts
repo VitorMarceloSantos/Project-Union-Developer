@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { UserType } from './UserType';
+import { PaginationOrCurrentPageType } from './ContextType';
 
 export type PaginationType = {
 	page: number;
@@ -20,7 +21,7 @@ export type PaginationSetPagesType = {
 export type CreatePaginationType = {
 	pageInitial: number;
 	pageFinally: number;
-	handlerSetPaginationNumbers: (listNumbers: PaginationType[]) => void;
+	handlerSetPaginationNumbers: (listNumbers: PaginationOrCurrentPageType) => void;
 };
 
 export type CalculationTotalPagesType = {
@@ -32,4 +33,10 @@ export type CalculationTotalPagesType = {
 export type SelectUsersPaginationType = {
 	paginationMenu: PaginationMenuProps;
 	page: number;
+	handlerSetPaginationNumbers: (listNumbers: PaginationOrCurrentPageType) => void;
+};
+
+export type SelectUsersPaginationCurrentType = {
+	paginationMenu: PaginationMenuProps;
+	valueInitialCurrent: number;
 };

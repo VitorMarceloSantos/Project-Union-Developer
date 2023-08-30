@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import { ChildrenType } from '../types/ChildrenType';
 import { PaginationNumbersContext } from './PaginationNumbersContext';
-import { PaginationType } from '../types/PaginationTypes';
+import { PaginationOrCurrentPageType } from '../types/ContextType';
 
 export const PaginationNumbersProvider = ({ children }: ChildrenType) => {
-	const [paginationNumbers, setPaginationNumbers] = useState<PaginationType[]>([]);
+	const [pagination, setPaginationNumbers] = useState<PaginationOrCurrentPageType>({
+		currentPage: 0,
+		paginationNumbers: [],
+	});
 
-	const handlerSetPaginationNumbers = (listUsers: PaginationType[]) => {
-		setPaginationNumbers(listUsers);
+	const handlerSetPaginationNumbers = (listNumbersOrCurrentPage: PaginationOrCurrentPageType) => {
+		const newObject: PaginationOrCurrentPageType = {...pagination, ...listNumbersOrCurrentPage}
+		setPaginationNumbers(newObject);
 	};
 	return (
-		<PaginationNumbersContext.Provider value={{ paginationNumbers, handlerSetPaginationNumbers }}>
+		<PaginationNumbersContext.Provider value={{ pagination, handlerSetPaginationNumbers }}>
 			{children}
 		</PaginationNumbersContext.Provider>
 	);

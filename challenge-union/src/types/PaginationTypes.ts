@@ -6,7 +6,7 @@ export type PaginationType = {
 };
 
 export type PaginationMenuProps = {
-	users: UserType[];
+	stateUsers: UserType[];
 	setUsersPagination: Dispatch<SetStateAction<UserType[]>>;
 };
 
@@ -20,11 +20,11 @@ export type PaginationSetPagesType = {
 export type CreatePaginationType = {
 	pageInitial: number;
 	pageFinally: number;
-	setPaginationNumbers: Dispatch<SetStateAction<PaginationType[]>>;
+	handlerSetPaginationNumbers: (listNumbers: PaginationType[]) => void;
 };
 
 export type CalculationTotalPagesType = {
-	users: UserType[];
+	stateUsers: UserType[];
 	setPageTotal: Dispatch<SetStateAction<number>>;
 	createPagination: CreatePaginationType;
 };

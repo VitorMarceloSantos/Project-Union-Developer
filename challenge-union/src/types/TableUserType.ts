@@ -11,11 +11,6 @@ export type UserStateType = {
 	setUsers: Dispatch<SetStateAction<UserType[]>>;
 };
 
-// export type UserStateType = {
-// 	stateUsers: UserType[];
-// 	handlerSetUsers: Dispatch<SetStateAction<UserType[]>>;
-// };
-
 export type UserPaginationType = {
 	usersPagination: UserType[];
 	setUsersPagination: Dispatch<SetStateAction<UserType[]>>;

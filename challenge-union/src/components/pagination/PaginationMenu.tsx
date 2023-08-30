@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { PaginationMenuProps, PaginationType } from '../../types/PaginationTypes';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { PaginationMenuProps } from '../../types/PaginationTypes';
 import {
 	CalculationTotalPages,
 	CreatePaginationNumbers,
@@ -7,30 +7,33 @@ import {
 	HandlerNextPages,
 	SelectUsersPagination,
 } from '../../utils/FunctionsPagination';
+import { PaginationNumbersContext } from '../../context/PaginationNumbersContext';
 
-export const PaginationMenu = ({ users, setUsersPagination }: PaginationMenuProps) => {
-	const [pageInitial, setPageInitial] = useState<number>(1);
-	const [pageFinally, setPageFinally] = useState<number>(5);
-	const [paginationNumbers, setPaginationNumbers] = useState<PaginationType[]>([]);
+export const PaginationMenu = ({ stateUsers, setUsersPagination }: PaginationMenuProps) => {
+	const { paginationNumbers, handlerSetPaginationNumbers } = useContext(PaginationNumbersContext);
+	const valueInitialPage = paginationNumbers.length !== 0 ? paginationNumbers[0].page : 1;
+	const valueFinallyPage = paginationNumbers.length !== 0 ? paginationNumbers[paginationNumbers.length - 1].page : 5;
+	const [pageInitial, setPageInitial] = useState<number>(valueInitialPage);
+	const [pageFinally, setPageFinally] = useState<number>(valueFinallyPage);
 	const [pagesTotal, setPageTotal] = useState<number>(0);
 
 	useEffect(() => {
 		CalculationTotalPages({
-			users,
+			stateUsers,
 			setPageTotal,
-			createPagination: { pageInitial, pageFinally, setPaginationNumbers },
+			createPagination: { pageInitial, pageFinally, handlerSetPaginationNumbers },
 		});
-	}, [users]);
+	}, [stateUsers]);
 
 	useEffect(() => {
-		CreatePaginationNumbers({ pageInitial, pageFinally, setPaginationNumbers });
+		CreatePaginationNumbers({ pageInitial, pageFinally, handlerSetPaginationNumbers });
 	}, [pageInitial]);
 
 	return (
 		<nav>
 			{useMemo(
 				() =>
-					users.length !== 0 && (
+					stateUsers.length !== 0 && (
 						<ol style={{ display: 'flex' }}>
 							<li key='back' style={{ listStyleType: 'none' }}>
 								<button
@@ -43,7 +46,7 @@ export const PaginationMenu = ({ users, setUsersPagination }: PaginationMenuProp
 							{paginationNumbers.map(({ page }) => (
 								<li key={page} style={{ listStyleType: 'none' }}>
 									<button
-										onClick={() => SelectUsersPagination({ page, paginationMenu: { users, setUsersPagination } })}
+										onClick={() => SelectUsersPagination({ page, paginationMenu: { stateUsers, setUsersPagination } })}
 									>
 										{page}
 									</button>

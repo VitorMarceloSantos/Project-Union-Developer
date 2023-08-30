@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Home } from './pages/home.tsx';
+import { Home } from './pages/Home.tsx';
+import { DetailsUser } from './pages/DetailsUser.tsx';
+import { UsersProvider } from './context/UsersProvider.tsx';
+import { PaginationNumbersProvider } from './context/PaginationNumbersProvider.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -12,16 +15,20 @@ const router = createBrowserRouter([
 				path: '/',
 				element: <Home />,
 			},
-			// {
-			// 	path: '/user-details',
-			// 	element: '',
-			// },
+			{
+				path: '/user-details/:slug',
+				element: <DetailsUser />,
+			},
 		],
 	},
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<UsersProvider>
+			<PaginationNumbersProvider>
+				<RouterProvider router={router} />
+			</PaginationNumbersProvider>
+		</UsersProvider>
 	</React.StrictMode>,
 );

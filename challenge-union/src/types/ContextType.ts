@@ -6,7 +6,12 @@ export type UserContextType = {
 	handlerSetUsers: (listUsers: UserType[]) => void;
 };
 
+export type PaginationOrCurrentPageType = {
+	paginationNumbers?: PaginationType[];
+	currentPage?: number;
+};
+
 export type PaginationNumbersContextType = {
-	paginationNumbers: PaginationType[];
-	handlerSetPaginationNumbers: (listNumbers: PaginationType[]) => void;
+	pagination: PaginationOrCurrentPageType;
+	handlerSetPaginationNumbers: (listNumbersOrCurrentPage: PaginationOrCurrentPageType) => void;
 };

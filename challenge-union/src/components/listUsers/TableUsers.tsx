@@ -6,9 +6,11 @@ import { UserType } from '../../types/UserType';
 
 export const TableUsers = ({ users }: TableUserType) => {
 	const navigate = useNavigate();
+
 	const HandlerNavegateUser = (user: UserType) => {
-		navigate(`/user-details/${user.name.first}`);
+		navigate(`/user-details/${user.name.first}`, { state: user });
 	};
+
 	return (
 		<table>
 			<thead>

@@ -1,0 +1,83 @@
+@import '../1-base/_pallete'
+@import './_mixins'
+
+// Contexto Geral
+.text-color-1
+  color: $color-text-title-1
+  font-size: 1.2rem
+
+.text-color-2
+  color: $color-text-title-2
+
+.text-color-3
+  color: $color-text-title-3
+  font-size: 1.3rem
+  font-weight: bold
+
+.details-user-navlink-div
+  padding: 20px 15px
+
+  &-link
+    color: $color-text-title-2
+    text-decoration: none
+
+    &:hover
+      color: $color-hover
+
+.details-user-informations-generic
+  margin: 0 30px
+  width: 13vw
+
+  &-display
+    display: none
+    margin-top: 1.2rem
+
+    &-unit
+      margin: .6rem 0
+
+      p
+        margin: .3rem 0
+
+  &:hover
+    cursor: pointer
+    @include show-display
+
+  &-title
+    border-bottom: .3rem solid transparent
+    text-align: center
+    padding-bottom: .5rem
+
+    &:hover
+      cursor: pointer
+      border-color: $color-hover
+
+// Contexto Específico
+.details-user
+  background-color: $bg-color
+  height: 100vh
+
+  &-profile
+    align-items: center
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    &-image
+
+      img
+        border-radius: 50%
+        margin: 1.5rem 0
+
+    &-title
+      font-size: 1.5rem
+      font-weight: bold
+      margin-bottom: .25rem
+
+.details-user-line
+  border: 1px solid $color-border
+  margin: 2rem 0 1.5rem 0
+
+.details-user-informations
+  align-items: flex-start
+  display: flex
+  justify-content: center

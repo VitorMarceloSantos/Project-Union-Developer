@@ -37,7 +37,7 @@ export const GetListUsers = ({ userState, userPagination, usersFiltered }: GetLi
 
 	return (
 		<>
-			<section>
+			<section className='get-list-user'>
 				{useMemo(
 					() => (stateUsers.length !== 0 ? <TableUsers users={verifyFilterUsers} /> : <p>Carregando ...</p>),
 					[verifyFilterUsers],

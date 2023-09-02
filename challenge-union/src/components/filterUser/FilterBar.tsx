@@ -21,7 +21,7 @@ export const FilterBar = ({ filterProps }: UserFilterType) => {
 	};
 
 	return (
-		<section>
+		<section className='filter-user-bar'>
 			<input type='text' placeholder='Search user...' value={userSearch} onChange={(event) => HandlerFindUser(event)} />
 		</section>
 	);

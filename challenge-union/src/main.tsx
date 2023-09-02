@@ -6,6 +6,7 @@ import { Home } from './pages/Home.tsx';
 import { DetailsUser } from './pages/DetailsUser.tsx';
 import { UsersProvider } from './context/UsersProvider.tsx';
 import { PaginationNumbersProvider } from './context/PaginationNumbersProvider.tsx';
+import './css/app.css'
 
 const router = createBrowserRouter([
 	{

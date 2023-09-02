@@ -11,8 +11,9 @@ export const Home = () => {
 	const [usersFiltered, setUsersFiltered] = useState<UserType[]>([]);
 
 	return (
-		<main>
+		<main className='home-container'>
 			<FilterUser filterProps={{ usersPagination, setUsersFiltered }} />
+			<hr className='border-home'/>
 			<GetListUsers
 				userState={{ stateUsers, handlerSetUsers }}
 				userPagination={{ usersPagination, setUsersPagination }}

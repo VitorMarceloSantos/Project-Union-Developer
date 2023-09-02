@@ -1,0 +1,37 @@
+@import '../../1-base/_pallete'
+
+.get-list-user
+  width: 96%
+
+  &-table
+    width: 100%
+    text-align: center
+
+    thead
+      background-color: $color-hover
+      color: $color-text-title-1
+      line-height: 1.5rem
+
+    tbody
+
+      tr
+        color: $color-text-title-3
+
+        td
+          padding: 1rem 0
+          line-height: 2rem
+          vertical-align: middle
+          width: calc((100/7) *1%)
+           
+      tr:not(:last-child)
+        border-bottom: 1px solid $color-border
+
+    &-link
+      color: $color-hover
+      text-decoration: none
+
+      &:hover
+        cursor: pointer
+        color: $color-text-title-2
+
+      

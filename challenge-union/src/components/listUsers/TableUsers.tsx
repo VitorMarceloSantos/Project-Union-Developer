@@ -1,18 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { TableUserType } from '../../types/TableUserType';
 import { FormattedDate } from '../../utils/FormattedDate';
 import { GenerateIdUser } from '../../utils/GenerateIdUser';
-import { UserType } from '../../types/UserType';
 
 export const TableUsers = ({ users }: TableUserType) => {
-	const navigate = useNavigate();
-
-	const HandlerNavegateUser = (user: UserType) => {
-		navigate(`/user-details/${user.name.first}`, { state: user });
-	};
 
 	return (
-		<table>
+		<table className='get-list-user-table'>
 			<thead>
 				<tr>
 					<th>ID</th>
@@ -34,7 +28,9 @@ export const TableUsers = ({ users }: TableUserType) => {
 						<td>{FormattedDate(user.dob.date)}</td>
 						<td>{user.dob.age}</td>
 						<td>
-							<button onClick={() => HandlerNavegateUser(user)}>View profile</button>
+							<Link className='get-list-user-table-link' to={`/user-details/${user.name.first}`} state={{ user }}>
+								View profile
+							</Link>
 						</td>
 					</tr>
 				))}

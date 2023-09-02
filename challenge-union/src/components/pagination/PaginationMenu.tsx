@@ -37,21 +37,22 @@ export const PaginationMenu = ({ stateUsers, setUsersPagination }: PaginationMen
 	}, [pageInitial]);
 
 	return (
-		<nav>
+		<nav className='pagination-menu'>
 			{useMemo(
 				() =>
 					stateUsers.length !== 0 && (
-						<ol style={{ display: 'flex' }}>
-							<li key='back' style={{ listStyleType: 'none' }}>
+						<ol className='pagination-menu-list'>
+							<li key='back' className='pagination-menu-list-li'>
 								<button
 									onClick={() => HandlerBackPages({ pageInitial, pageFinally, setPageInitial, setPageFinally })}
 									disabled={pageInitial === 1}
+									className='pagination-menu-list-li-button'
 								>
 									&#60;
 								</button>
 							</li>
 							{paginationNumbers?.map(({ page }) => (
-								<li key={page} style={{ listStyleType: 'none' }}>
+								<li key={page} className='pagination-menu-list-li'>
 									<button
 										onClick={() =>
 											SelectUsersPagination({
@@ -60,15 +61,17 @@ export const PaginationMenu = ({ stateUsers, setUsersPagination }: PaginationMen
 												handlerSetPaginationNumbers,
 											})
 										}
+										className='pagination-menu-list-li-button'
 									>
 										{page}
 									</button>
 								</li>
 							))}
-							<li key='next' style={{ listStyleType: 'none' }}>
+							<li key='next' className='pagination-menu-list-li'>
 								<button
 									onClick={() => HandlerNextPages({ pageInitial, pageFinally, setPageInitial, setPageFinally })}
 									disabled={pageFinally === pagesTotal}
+									className='pagination-menu-list-li-button'
 								>
 									&#62;
 								</button>
